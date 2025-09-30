@@ -6,26 +6,30 @@
 <title>推しボタン｜Oshi Voice Player｜推しが、いつでもそばに。</title>
 <meta name="description" content="ワンタッチで“推しの声／推しの曲”を再生。推し活の新定番、手のひらサイズのサウンドガジェット。刻印対応あり。">
 <style>
-  :root{--w:900px}
-  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;line-height:1.6;margin:0;color:#222}
-  header,section,footer{padding:24px}
-  .wrap{max-width:var(--w);margin:0 auto}
-  .hero{background:#f6f7fb;padding:56px 24px;text-align:center}
-  h1{font-size:clamp(28px,4vw,40px);margin:0 0 8px}
-  h2{font-size:clamp(22px,3vw,28px);margin:32px 0 8px}
-  .lead{font-size:18px;color:#444}
-  .btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:20px}
-  .btn{padding:12px 18px;border-radius:10px;border:1px solid #333;text-decoration:none;color:#fff;background:#111}
-  .btn.outline{color:#111;background:#fff}
-  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
-  .card{border:1px solid #eee;border-radius:14px;padding:16px;background:#fff}
-  ul.check{list-style:none;padding-left:0}
-  ul.check li::before{content:"✓ ";color:#3a7}
-  table{width:100%;border-collapse:collapse}
-  th,td{border:1px solid #eee;padding:10px;text-align:left}
-  details{border:1px solid #eee;border-radius:10px;padding:10px;margin:8px 0;background:#fff}
-  footer{background:#f6f7fb;color:#555;font-size:14px}
-  .small{font-size:13px;color:#666}
+:root{--w:900px}
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;line-height:1.6;margin:0;color:#222}
+header,section,footer{padding:24px}
+.wrap{max-width:var(--w);margin:0 auto}
+.hero{background:#f6f7fb;padding:56px 24px 96px;text-align:center;position:relative}
+h1{font-size:clamp(28px,4vw,40px);margin:0 0 8px}
+h2{font-size:clamp(22px,3vw,28px);margin:32px 0 8px}
+.lead{font-size:18px;color:#444}
+.btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:20px;position:relative;z-index:2}
+.btn{padding:12px 18px;border-radius:10px;border:1px solid #333;text-decoration:none;color:#fff;background:#111}
+.btn.outline{color:#111;background:#fff}
+/* ▼ヒーロー直下に重ねる画像 */
+.hero-overlap{position:relative;margin-top:-60px;z-index:1}
+.hero-overlap img{width:100%;max-width:900px;display:block;margin:0 auto;border-radius:12px}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.card{border:1px solid #eee;border-radius:14px;padding:16px;background:#fff}
+ul.check{list-style:none;padding-left:0}
+ul.check li::before{content:"✓ ";color:#3a7}
+table{width:100%;border-collapse:collapse}
+th,td{border:1px solid #eee;padding:10px;text-align:left}
+details{border:1px solid #eee;border-radius:10px;padding:10px;margin:8px 0;background:#fff}
+footer{background:#f6f7fb;color:#555;font-size:14px}
+.small{font-size:13px;color:#666}
 </style>
 </head>
 <body>
@@ -37,6 +41,10 @@
       <!-- ▼購入ボタンのリンク先をあなたのメルカリ/BOOTH/ショップURLに差し替えてください -->
       <a class="btn" href="#" target="_blank" rel="noopener">購入する</a>
       <a class="btn outline" href="#contact">お問い合わせ</a>
+    </div>
+    <!-- ▼ボタンの後ろに“重ねて”見せる横長写真。ファイル名をアップした画像に合わせて変更してください -->
+    <div class="hero-overlap">
+      <img src="DSC04052.JPG" alt="推しボタンの写真">
     </div>
   </div>
 </header>
@@ -114,7 +122,9 @@
   <section id="contact">
     <h2>お問い合わせ</h2>
     <p>コラボ・まとめ注文・BtoBのご相談も歓迎です。<br>
-    連絡先：<a href="mailto:you@example.com">you@example.com</a> ／ SNS：<a href="#" target="_blank" rel="noopener">X</a>・<a href="#" target="_blank" rel="noopener">Instagram</a></p>
+    連絡先：<a href="mailto:you@example.com">you@example.com</a> ／ SNS：
+    <a href="#" target="_blank" rel="noopener">X</a>・
+    <a href="#" target="_blank" rel="noopener">Instagram</a></p>
   </section>
 </main>
 
