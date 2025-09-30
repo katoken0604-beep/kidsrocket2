@@ -4,58 +4,143 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>推しボタン｜Oshi Voice Player｜推しが、いつでもそばに。</title>
-<meta name="description" content="ワンタッチで“推しの声／推しの曲”を再生。推し活の新定番、手のひらサイズのサウンドガジェット。刻印対応あり。">
+<meta name="description" content="ワンタッチで“推しの声／推しの曲”を再生。手のひらサイズのサウンドガジェット。">
+<link rel="preload" as="image" href="DSC04073.JPG">
 <style>
-:root{--w:900px}
-body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;line-height:1.6;margin:0;color:#222}
-header,section,footer{padding:24px}
-.wrap{max-width:var(--w);margin:0 auto}
-.hero{background:#f6f7fb;padding:56px 24px 96px;text-align:center;position:relative}
-h1{font-size:clamp(28px,4vw,40px);margin:0 0 8px}
-h2{font-size:clamp(22px,3vw,28px);margin:32px 0 8px}
-.lead{font-size:18px;color:#444}
-.btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:20px;position:relative;z-index:2}
-.btn{padding:12px 18px;border-radius:10px;border:1px solid #333;text-decoration:none;color:#fff;background:#111}
-.btn.outline{color:#111;background:#fff}
-/* ▼ヒーロー直下に重ねる画像 */
-.hero-overlap{position:relative;margin-top:-60px;z-index:1}
-.hero-overlap img{width:100%;max-width:900px;display:block;margin:0 auto;border-radius:12px}
+:root{
+  --bg:#F7F4ED;        /* 生成り */
+  --ink:#1F2937;       /* 濃いめグレー */
+  --muted:#4B5563;     /* 説明文用 */
+  --edge:#e8e3d9;      /* 枠線 */
+  --acc:#E07A5F;       /* アクセント（温白） */
+  --w:1024px;
+  --r:16px;
+  --shadow:0 10px 28px rgba(0,0,0,.08);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;line-height:1.72}
+.wrap{max-width:var(--w);margin:0 auto;padding:0 20px}
+section{padding:72px 0}
+h1{font-size:clamp(28px,5.6vw,46px);margin:0 0 12px;letter-spacing:.02em}
+h2{font-size:clamp(22px,3.2vw,30px);margin:0 0 16px}
+p.lead{font-size:18px;color:var(--muted);margin:0}
+.small{font-size:13px;color:#6b7280}
+/* Hero */
+.hero{position:relative;overflow:hidden;padding:88px 0 56px}
+.hero .grain{
+  position:absolute;inset:-20%;opacity:.25;pointer-events:none;
+  background:
+    radial-gradient(1000px 500px at 10% -10%, rgba(224,122,95,.18), transparent 60%),
+    radial-gradient(1000px 500px at 110% 10%, rgba(224,122,95,.10), transparent 60%);
+  z-index:-1;
+}
+.hero .panel{display:grid;gap:28px;grid-template-columns:1.05fr 1fr;align-items:center}
+@media(max-width:900px){.hero .panel{grid-template-columns:1fr}}
+.hero img{width:100%;display:block;border-radius:var(--r);box-shadow:var(--shadow)}
 
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
-.card{border:1px solid #eee;border-radius:14px;padding:16px;background:#fff}
-ul.check{list-style:none;padding-left:0}
-ul.check li::before{content:"✓ ";color:#3a7}
-table{width:100%;border-collapse:collapse}
-th,td{border:1px solid #eee;padding:10px;text-align:left}
-details{border:1px solid #eee;border-radius:10px;padding:10px;margin:8px 0;background:#fff}
-footer{background:#f6f7fb;color:#555;font-size:14px}
-.small{font-size:13px;color:#666}
+/* Buttons */
+.btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+.btn{
+  display:inline-block;padding:12px 18px;border-radius:999px;border:1px solid var(--ink);
+  background:var(--ink);color:#fff;text-decoration:none;transform:translateZ(0);
+  transition:transform .12s ease, box-shadow .12s ease, background .12s ease, opacity .12s ease
+}
+.btn:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,0,0,.12)}
+.btn.outline{background:transparent;color:var(--ink)}
+.btn[aria-disabled="true"]{opacity:.65;cursor:not-allowed}
+
+/* Cards + grids */
+.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.card{background:#fff;border:1px solid var(--edge);border-radius:var(--r);padding:16px;box-shadow:var(--shadow)}
+.card img{width:100%;display:block;border-radius:12px;margin-bottom:10px}
+.caption{font-size:13px;color:var(--muted);margin-top:6px}
+
+/* Checklist */
+.check{list-style:none;padding:0;margin:0}
+.check li{padding-left:28px;position:relative;margin:8px 0}
+.check li::before{
+  content:"";position:absolute;left:0;top:.55em;width:16px;height:16px;border-radius:50%;
+  border:2px solid var(--acc)
+}
+
+/* Table */
+.table{width:100%;border-collapse:collapse;margin-top:8px;background:#fff;border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
+.table th,.table td{border:1px solid var(--edge);padding:12px;text-align:left}
+.table th{background:#fbfaf7;}
+
+/* Color variations */
+.color-grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.color-item{background:#fff;border:1px solid var(--edge);border-radius:14px;box-shadow:var(--shadow);padding:12px;text-align:center}
+.color-item img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:10px}
+.color-item .name{margin-top:8px;font-size:14px;color:var(--muted)}
+
+/* FAQ */
+details{border:1px solid var(--edge);border-radius:12px;background:#fff;padding:12px;margin:10px 0;box-shadow:var(--shadow)}
+summary{cursor:pointer}
+
+/* Footer */
+footer{background:#f1eee6;color:#6b7280;font-size:14px;padding:28px 0;margin-top:12px}
+.badge{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(224,122,95,.12);color:#9b4631;font-weight:600;font-size:12px;margin-left:8px}
 </style>
 </head>
 <body>
+
 <header class="hero">
-  <div class="wrap">
-    <h1>推しが、いつでもそばに。</h1>
-    <p class="lead">ワンタッチで“推しの声／推しの曲”を再生。<br>手のひらサイズのサウンドガジェット <strong>推しボタン｜Oshi Voice Player</strong></p>
-    <div class="btns">
-      <!-- ▼購入ボタンのリンク先をあなたのメルカリ/BOOTH/ショップURLに差し替えてください -->
-      <a class="btn" href="#" target="_blank" rel="noopener">購入する</a>
-      <a class="btn outline" href="#contact">お問い合わせ</a>
+  <div class="grain"></div>
+  <div class="wrap panel">
+    <div>
+      <h1>推しが、いつでもそばに。<span class="badge">Natural Craft</span></h1>
+      <p class="lead">ワンタッチで“推しの声／推しの曲”。手のひらサイズのサウンドガジェット <strong>推しボタン｜Oshi Voice Player</strong></p>
+      <div class="btns">
+        <a class="btn" href="#" aria-disabled="true">購入する（準備中）</a>
+        <a class="btn outline" href="#contact" aria-disabled="true">お問い合わせ（準備中）</a>
+      </div>
     </div>
-    <!-- ▼ボタンの後ろに“重ねて”見せる横長写真。ファイル名をアップした画像に合わせて変更してください -->
-    <div class="hero-overlap">
-      <img src="DSC04052.JPG" alt="推しボタンの写真">
+    <div>
+      <img src="DSC04073.JPG" loading="eager" alt="推しボタンのヒーロー写真（横長）">
+      <p class="caption">背景は無地、影は柔らかめ、彩度控えめで統一</p>
     </div>
   </div>
 </header>
 
 <main class="wrap">
+
   <section>
-    <h2>こんな人におすすめ</h2>
-    <div class="cards">
-      <div class="card">推しのセリフを<strong>いつでも聴きたい</strong></div>
-      <div class="card">自分の楽曲を<strong>“手に取れる”グッズ</strong>に</div>
-      <div class="card">誕生日や記念日に<strong>声のギフト</strong>を贈りたい</div>
+    <h2>これだけカンタン（3ポイント）</h2>
+    <div class="grid">
+      <div class="card">
+        <img src="1.jpg" loading="lazy" alt="手のひらサイズのイメージ">
+        <strong>かんたん</strong><br><span class="small">ボタンひとつで再生</span>
+      </div>
+      <div class="card">
+        <img src="2.jpg" loading="lazy" alt="microSDの挿入イメージ">
+        <strong>microSD対応</strong><br><span class="small">/mp3 フォルダに入れるだけ</span>
+      </div>
+      <div class="card">
+        <img src="4.jpg" loading="lazy" alt="取扱説明のイメージ">
+        <strong>迷わない</strong><br><span class="small">シンプルな取扱ガイドつき</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>色のバリエーション（6色）</h2>
+    <div class="color-grid">
+      <div class="color-item"><img src="黒.jpg" loading="lazy" alt="黒ボタン"><div class="name">黒</div></div>
+      <div class="color-item"><img src="白.jpg" loading="lazy" alt="白ボタン"><div class="name">白</div></div>
+      <div class="color-item"><img src="赤.jpg" loading="lazy" alt="赤ボタン"><div class="name">赤</div></div>
+      <div class="color-item"><img src="黄色.jpg" loading="lazy" alt="黄色ボタン"><div class="name">黄色</div></div>
+      <div class="color-item"><img src="緑.jpg" loading="lazy" alt="緑ボタン"><div class="name">緑</div></div>
+      <div class="color-item"><img src="青.jpg" loading="lazy" alt="青ボタン"><div class="name">青</div></div>
+    </div>
+    <p class="small">※ 画像ファイル名は「色名.jpg」で配置してください（例：<code>黒.jpg</code>）。</p>
+  </section>
+
+  <section>
+    <h2>サイズ感</h2>
+    <div class="card">
+      <img src="3.jpg" loading="lazy" alt="スマホや電池と並べたサイズ比較">
+      <p class="small">ポケットに収まるコンパクトサイズ。手のひらや単4電池などと並べて撮影すると伝わります。</p>
     </div>
   </section>
 
@@ -63,7 +148,7 @@ footer{background:#f6f7fb;color:#555;font-size:14px}
     <h2>使い方（5ステップ）</h2>
     <ol>
       <li>好きな音源を用意（<strong>MP3推奨</strong>）</li>
-      <li>microSDに<strong>/mp3</strong>フォルダ作成</li>
+      <li>microSDに<strong>/mp3</strong>フォルダを作成</li>
       <li>音源ファイルを入れる（例：<code>001.mp3</code>）</li>
       <li>本体へmicroSDを挿入</li>
       <li>ボタンを押して<strong>再生！</strong></li>
@@ -76,13 +161,13 @@ footer{background:#f6f7fb;color:#555;font-size:14px}
       <li><strong>シンプル操作</strong>：電源ON→ボタンひとつ</li>
       <li><strong>コンパクト</strong>：ポケットにすっぽり</li>
       <li><strong>スピーカー内蔵</strong>：そのまま鳴る</li>
-      <li><strong>カスタム対応</strong>：刻印・書き込み代行（オプション）</li>
+      <li><strong>カスタム対応</strong>：音源書き込み代行（将来対応予定）</li>
     </ul>
   </section>
 
   <section>
     <h2>仕様</h2>
-    <table>
+    <table class="table">
       <tr><th>外形寸法</th><td>横85 × 奥行62 × 高さ36 mm</td></tr>
       <tr><th>電源</th><td>単4電池 × 3本</td></tr>
       <tr><th>音源</th><td>microSD（MP3）</td></tr>
@@ -92,25 +177,18 @@ footer{background:#f6f7fb;color:#555;font-size:14px}
   </section>
 
   <section>
-    <h2>価格・オプション</h2>
-    <p>本体価格：<strong>¥○,○○○（税込）</strong><br>
-    刻印オプション：<strong>+¥○○○</strong>／音源書き込み代行：<strong>+¥○○○</strong><br>
-    送料・配送方法は販売ページをご確認ください。</p>
-  </section>
-
-  <section>
     <h2>よくある質問</h2>
     <details><summary>アニメのセリフを入れて大丈夫？</summary>
-      <p>著作権・肖像権・パブリシティ権に配慮が必要です。権利を侵害しない範囲でご利用ください。</p>
+      <p class="small">著作権・肖像権・パブリシティ権に配慮が必要です。権利を侵害しない範囲でご利用ください。</p>
     </details>
     <details><summary>対応フォーマットは？</summary>
-      <p>MP3推奨（128～192kbps程度が目安）。</p>
+      <p class="small">MP3推奨（128～192kbps程度が目安）。</p>
     </details>
     <details><summary>音量は調整できますか？</summary>
-      <p>本体は標準音量です。必要に応じて音源側で音量を調整してください。</p>
+      <p class="small">本体は標準音量です。必要に応じて音源側で音量を調整してください。</p>
     </details>
     <details><summary>連続再生時間は？</summary>
-      <p>電池・音量・音源により異なります。一般的なアルカリ乾電池で数時間を想定。</p>
+      <p class="small">電池・音量・音源により異なります。一般的なアルカリ乾電池で数時間を想定。</p>
     </details>
   </section>
 
@@ -120,12 +198,10 @@ footer{background:#f6f7fb;color:#555;font-size:14px}
   </section>
 
   <section id="contact">
-    <h2>お問い合わせ</h2>
-    <p>コラボ・まとめ注文・BtoBのご相談も歓迎です。<br>
-    連絡先：<a href="mailto:you@example.com">you@example.com</a> ／ SNS：
-    <a href="#" target="_blank" rel="noopener">X</a>・
-    <a href="#" target="_blank" rel="noopener">Instagram</a></p>
+    <h2>お問い合わせ（準備中）</h2>
+    <p class="small">購入ページとお問い合わせ先は現在準備中です。公開次第、このボタンから遷移します。</p>
   </section>
+
 </main>
 
 <footer>
