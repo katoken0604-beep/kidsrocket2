@@ -4,22 +4,25 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>推しボタン｜Oshi Voice Player｜推しが、いつでもそばに。</title>
-<meta name="description" content="ワンタッチで“推しの声／推しの曲”を再生。手のひらサイズのサウンドガジェット。">
+<meta name="description" content="ワンタッチで“推しの声／推しの曲”。手のひらサイズのサウンドガジェット。">
 <link rel="preload" as="image" href="./DSC04052.JPG">
 <style>
-:root{--bg:#F7F4ED;--ink:#1F2937;--muted:#4B5563;--edge:#e8e3d9;--acc:#E07A5F;--w:1024px;--r:16px;--shadow:0 10px 28px rgba(0,0,0,.08)}
+:root{
+  --bg:#F7F4ED; --ink:#1F2937; --muted:#4B5563; --edge:#e8e3d9; --acc:#E07A5F;
+  --w:1024px; --r:16px; --shadow:0 10px 28px rgba(0,0,0,.08)
+}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;line-height:1.72}
 .wrap{max-width:var(--w);margin:0 auto;padding:0 20px}
 section{padding:72px 0}
-h1{font-size:clamp(28px,5.6vw,46px);margin:0 0 12px}
+h1{font-size:clamp(28px,5.6vw,46px);margin:0 0 12px;letter-spacing:.01em}
 h2{font-size:clamp(22px,3.2vw,30px);margin:0 0 16px}
 p.lead{font-size:18px;color:var(--muted);margin:0}
 .small{font-size:13px;color:#6b7280}
 
 /* Hero */
 .hero{position:relative;overflow:hidden;padding:88px 0 56px}
-.hero .grain{position:absolute;inset:-20%;opacity:.25;pointer-events:none;background:
+.hero .bg{position:absolute;inset:-20%;opacity:.25;pointer-events:none;background:
 radial-gradient(1000px 500px at 10% -10%, rgba(224,122,95,.18), transparent 60%),
 radial-gradient(1000px 500px at 110% 10%, rgba(224,122,95,.10), transparent 60%);z-index:-1}
 .hero .panel{display:grid;gap:28px;grid-template-columns:1.05fr 1fr;align-items:center}
@@ -36,11 +39,19 @@ radial-gradient(1000px 500px at 110% 10%, rgba(224,122,95,.10), transparent 60%)
 /* Cards + grids */
 .grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
 .card{background:#fff;border:1px solid var(--edge);border-radius:var(--r);padding:16px;box-shadow:var(--shadow)}
-.card img{width:100%;display:block;border-radius:12px;margin-bottom:10px}
-.card a{color:inherit;text-decoration:none}
-.card a:hover img{transform:scale(1.01)}
-.card img{transition:transform .12s ease}
-.caption{font-size:13px;color:var(--muted);margin-top:6px}
+.card .thumb{width:100%;display:block;border-radius:12px;margin-bottom:10px;cursor:zoom-in;transition:transform .12s}
+.card .thumb:hover{transform:scale(1.01)}
+
+/* Fancy steps */
+.steps{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.step{display:flex;gap:12px;align-items:flex-start;background:#fff;border:1px solid var(--edge);border-radius:14px;padding:14px;box-shadow:var(--shadow)}
+.no{min-width:28px;height:28px;border-radius:50%;background:var(--ink);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;line-height:1;}
+
+/* Feature list */
+.features{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.feature{background:#fff;border:1px solid var(--edge);border-radius:14px;padding:16px;box-shadow:var(--shadow)}
+.feature b{display:block;margin-bottom:4px}
+.feature .sub{color:var(--muted);font-size:14px}
 
 /* Table */
 .table{width:100%;border-collapse:collapse;margin-top:8px;background:#fff;border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
@@ -50,7 +61,8 @@ radial-gradient(1000px 500px at 110% 10%, rgba(224,122,95,.10), transparent 60%)
 /* Color variations */
 .color-grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
 .color-item{background:#fff;border:1px solid var(--edge);border-radius:14px;box-shadow:var(--shadow);padding:12px;text-align:center}
-.color-item img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:10px}
+.color-item img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:10px;cursor:zoom-in;transition:transform .12s}
+.color-item img:hover{transform:scale(1.01)}
 .color-item .name{margin-top:8px;font-size:14px;color:var(--muted)}
 
 /* FAQ */
@@ -59,91 +71,127 @@ summary{cursor:pointer}
 
 /* Footer */
 footer{background:#f1eee6;color:#6b7280;font-size:14px;padding:28px 0;margin-top:12px}
-.badge{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(224,122,95,.12);color:#9b4631;font-weight:600;font-size:12px;margin-left:8px}
+
+/* --- Lightbox (小窓プレビュー) --- */
+.lb{position:fixed;inset:0;background:rgba(0,0,0,.35);display:none;align-items:center;justify-content:center;padding:20px;z-index:50}
+.lb[aria-hidden="false"]{display:flex}
+.lb__box{background:#fff;border-radius:14px;box-shadow:0 12px 36px rgba(0,0,0,.22);max-width:min(92vw,900px)}
+.lb__head{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-bottom:1px solid #eee}
+.lb__head b{font-size:14px}
+.lb__close{appearance:none;border:0;background:#eee;border-radius:10px;padding:6px 10px;cursor:pointer}
+.lb__body{padding:10px}
+.lb__img{max-height:min(80vh,720px);max-width:86vw;display:block;border-radius:10px}
 </style>
 </head>
 <body>
 
 <header class="hero">
-  <div class="grain"></div>
+  <div class="bg"></div>
   <div class="wrap panel">
     <div>
-      <h1>推しが、いつでもそばに。<span class="badge">Natural Craft</span></h1>
-      <p class="lead">ワンタッチで“推しの声／推しの曲”。手のひらサイズのサウンドガジェット <strong>推しボタン｜Oshi Voice Player</strong></p>
+      <h1>推しが、いつでもそばに。</h1>
+      <p class="lead">ワンタッチで“推しの声／推しの曲”。手のひらサイズのサウンドガジェット。</p>
       <div class="btns">
         <a class="btn" href="#" aria-disabled="true">購入する（準備中）</a>
         <a class="btn outline" href="#contact" aria-disabled="true">お問い合わせ（準備中）</a>
       </div>
     </div>
     <div>
-      <img src="./DSC04052.JPG?v=2" alt="推しボタンのヒーロー写真"
-           onerror="this.outerHTML='<div style=&quot;padding:16px;border:1px solid #f99;background:#fff0f0;border-radius:8px&quot;>画像を読み込めません：<code>'+this.src+'</code><br>同じ階層に <code>DSC04052.JPG</code> があるか/大文字小文字一致か確認してください。</div>'">
-      <p class="caption">背景は無地、影は柔らかめ、彩度控えめで統一</p>
+      <img src="./DSC04052.JPG" alt="推しボタンの写真" class="thumb" data-full="./DSC04052.JPG">
     </div>
   </div>
 </header>
 
 <main class="wrap">
 
-  <!-- ★ 3ポイント：クリックで別タブ拡大（画像 1.jpg / 2.jpg / 4.jpg を必ずアップしてください） -->
+  <!-- 3ポイント（クリックで小窓プレビュー） -->
   <section>
-    <h2>これだけカンタン（3ポイント）</h2>
+    <h2>これだけカンタン</h2>
     <div class="grid">
-      <div class="card">
-        <a href="./1.jpg" target="_blank" rel="noopener">
-          <img src="./1.jpg" alt="手のひらサイズのイメージ">
-        </a>
-        <strong>かんたん</strong><br><span class="small">ボタンひとつで再生</span>
+      <div class="card" data-hide-if-missing>
+        <img src="./1.jpg" alt="ボタンで再生" class="thumb" data-full="./1.jpg">
+        <b>ボタンひとつ</b>
+        <div class="small">押すだけですぐ再生。</div>
       </div>
-      <div class="card">
-        <a href="./2.jpg" target="_blank" rel="noopener">
-          <img src="./2.jpg" alt="microSDの挿入イメージ">
-        </a>
-        <strong>microSD対応</strong><br><span class="small">/mp3 フォルダに入れるだけ</span>
+      <div class="card" data-hide-if-missing>
+        <img src="./2.jpg" alt="microSDの挿入" class="thumb" data-full="./2.jpg">
+        <b>microSDに入れるだけ</b>
+        <div class="small"><code>/mp3</code> に <code>001.mp3</code> を保存。</div>
       </div>
-      <div class="card">
-        <a href="./4.jpg" target="_blank" rel="noopener">
-          <img src="./4.jpg" alt="取扱説明のイメージ">
-        </a>
-        <strong>迷わない</strong><br><span class="small">シンプルな取扱ガイドつき</span>
+      <div class="card" data-hide-if-missing>
+        <img src="./4.jpg" alt="ガイド付き" class="thumb" data-full="./4.jpg">
+        <b>迷わないガイド</b>
+        <div class="small">最初のセットアップもシンプル。</div>
       </div>
     </div>
   </section>
 
+  <!-- 使い方（おしゃれ版） -->
+  <section>
+    <h2>使い方（5ステップ）</h2>
+    <div class="steps">
+      <div class="step"><span class="no">1</span><div>好きな音源を用意（<b>MP3推奨</b>）</div></div>
+      <div class="step"><span class="no">2</span><div>microSDに <code>/mp3</code> フォルダを作成</div></div>
+      <div class="step"><span class="no">3</span><div>音源を保存（例：<code>001.mp3</code>）</div></div>
+      <div class="step"><span class="no">4</span><div>本体へmicroSDを挿入</div></div>
+      <div class="step"><span class="no">5</span><div>ボタンを押して <b>再生！</b></div></div>
+    </div>
+  </section>
+
+  <!-- 特長（プロ寄りコピー） -->
+  <section>
+    <h2>特長</h2>
+    <div class="features">
+      <div class="feature"><b>一発再生</b><div class="sub">電源ON、ワンタッチですぐ鳴る。</div></div>
+      <div class="feature"><b>持ち歩けるサイズ</b><div class="sub">ポケットに収まるミニマル設計。</div></div>
+      <div class="feature"><b>スピーカー内蔵</b><div class="sub">外部機器なしでそのまま再生。</div></div>
+      <div class="feature"><b>拡張しやすい</b><div class="sub">音源の入替・追加が簡単。代行は今後対応予定。</div></div>
+    </div>
+  </section>
+
+  <!-- 色のバリエーション（クリックで小窓） -->
   <section>
     <h2>色のバリエーション</h2>
     <div class="color-grid">
-      <div class="color-item"><img src="./赤.JPG?v=2" alt="赤ボタン"><div class="name">赤</div></div>
-      <div class="color-item"><img src="./緑.JPG?v=2" alt="緑ボタン"><div class="name">緑</div></div>
-      <div class="color-item"><img src="./黄色.JPG?v=2" alt="黄色ボタン"><div class="name">黄色</div></div>
-      <div class="color-item"><img src="./黒.JPG?v=2" alt="黒ボタン"><div class="name">黒</div></div>
-      <!-- 白/青 を追加したら以下を有効化
-      <div class="color-item"><img src="./白.JPG" alt="白ボタン"><div class="name">白</div></div>
-      <div class="color-item"><img src="./青.JPG" alt="青ボタン"><div class="name">青</div></div>
+      <div class="color-item"><img src="./赤.JPG" alt="赤ボタン" class="thumb" data-full="./赤.JPG"><div class="name">赤</div></div>
+      <div class="color-item"><img src="./緑.JPG" alt="緑ボタン" class="thumb" data-full="./緑.JPG"><div class="name">緑</div></div>
+      <div class="color-item"><img src="./黄色.JPG" alt="黄色ボタン" class="thumb" data-full="./黄色.JPG"><div class="name">黄色</div></div>
+      <div class="color-item"><img src="./黒.JPG" alt="黒ボタン" class="thumb" data-full="./黒.JPG"><div class="name">黒</div></div>
+      <!-- 白/青 を追加するときは以下を有効化
+      <div class="color-item"><img src="./白.JPG" alt="白ボタン" class="thumb" data-full="./白.JPG"><div class="name">白</div></div>
+      <div class="color-item"><img src="./青.JPG" alt="青ボタン" class="thumb" data-full="./青.JPG"><div class="name">青</div></div>
       -->
     </div>
-    <p class="small">※ ファイル名・拡張子は**大文字小文字まで完全一致**（例：<code>黒.JPG</code>と<code>黒.jpg</code>は別扱い）。</p>
   </section>
 
+  <!-- ▼動画セクション（後で差し替え） -->
   <section>
-    <h2>使い方（5ステップ）</h2>
-    <ol>
-      <li>好きな音源を用意（<strong>MP3推奨</strong>）</li>
-      <li>microSDに<strong>/mp3</strong>フォルダを作成</li>
-      <li>音源ファイルを入れる（例：<code>001.mp3</code>）</li>
-      <li>本体へmicroSDを挿入</li>
-      <li>ボタンを押して<strong>再生！</strong></li>
-    </ol>
-  </section>
-
-  <section>
-    <h2>特長</h2>
-    <ul class="check">
-      <li><strong>シンプル操作</strong>：電源ON→ボタンひとつ</li>
-      <li><strong>コンパクト</strong>：ポケットにすっぽり</li>
-      <li><strong>スピーカー内蔵</strong>：そのまま鳴る</li>
-      <li><strong>カスタム対応</strong>：音源書き込み代行（将来対応予定）</li>
-    </ul>
+    <h2>使い方動画</h2>
+    <p class="small">音源の入れ替え方・再生方法・リセット方法。</p>
+    <div class="grid">
+      <div class="card">
+        <b>音源の入れ替え方</b>
+        <div style="position:relative;padding-top:56.25%;border-radius:12px;overflow:hidden;background:#0001">
+          <!-- YouTube なら id を差替： https://www.youtube.com/watch?v=XXXX => /embed/XXXX -->
+          <iframe src="https://www.youtube.com/embed/XXXXXXXXXXX" title="音源の入れ替え方" frameborder="0" allowfullscreen
+                  style="position:absolute;inset:0;width:100%;height:100%"></iframe>
+        </div>
+      </div>
+      <div class="card">
+        <b>再生方法</b>
+        <div style="position:relative;padding-top:56.25%;border-radius:12px;overflow:hidden;background:#0001">
+          <iframe src="https://www.youtube.com/embed/XXXXXXXXXXX" title="再生方法" frameborder="0" allowfullscreen
+                  style="position:absolute;inset:0;width:100%;height:100%"></iframe>
+        </div>
+      </div>
+      <div class="card">
+        <b>リセット方法</b>
+        <div style="position:relative;padding-top:56.25%;border-radius:12px;overflow:hidden;background:#0001">
+          <iframe src="https://www.youtube.com/embed/XXXXXXXXXXX" title="リセット方法" frameborder="0" allowfullscreen
+                  style="position:absolute;inset:0;width:100%;height:100%"></iframe>
+        </div>
+      </div>
+    </div>
   </section>
 
   <section>
@@ -169,6 +217,46 @@ footer{background:#f1eee6;color:#6b7280;font-size:14px;padding:28px 0;margin-top
     <p>© <span id="y"></span> 推しボタン / Oshi Voice Player</p>
   </div>
 </footer>
-<script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+
+<!-- Lightbox script -->
+<script>
+(function(){
+  const lb = document.createElement('div');
+  lb.className = 'lb';
+  lb.setAttribute('aria-hidden','true');
+  lb.innerHTML = `
+    <div class="lb__box" role="dialog" aria-modal="true">
+      <div class="lb__head">
+        <b>プレビュー</b>
+        <button class="lb__close" aria-label="閉じる">閉じる</button>
+      </div>
+      <div class="lb__body">
+        <img class="lb__img" alt="">
+      </div>
+    </div>`;
+  document.body.appendChild(lb);
+  const imgTag = lb.querySelector('.lb__img');
+  const closeBtn = lb.querySelector('.lb__close');
+
+  function open(src){ imgTag.src = src; lb.setAttribute('aria-hidden','false'); }
+  function close(){ lb.setAttribute('aria-hidden','true'); imgTag.src=''; }
+
+  document.addEventListener('click', e=>{
+    const t = e.target;
+    if(t.classList && t.classList.contains('thumb')){
+      e.preventDefault();
+      open(t.dataset.full || t.src);
+    } else if (t===closeBtn || t===lb){ close(); }
+  });
+
+  // 画像未配置のカードを自動で隠す
+  document.querySelectorAll('[data-hide-if-missing] img').forEach(img=>{
+    img.addEventListener('error', ()=> img.closest('.card').style.display='none', {once:true});
+  });
+
+  // 年号
+  document.getElementById('y').textContent = new Date().getFullYear();
+})();
+</script>
 </body>
 </html>
