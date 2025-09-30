@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>推しボタン｜Oshi Voice Player｜推しが、いつでもそばに。</title>
+<meta name="description" content="ワンタッチで“推しの声／推しの曲”を再生。推し活の新定番、手のひらサイズのサウンドガジェット。刻印対応あり。">
+<style>
+  :root{--w:900px}
+  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;line-height:1.6;margin:0;color:#222}
+  header,section,footer{padding:24px}
+  .wrap{max-width:var(--w);margin:0 auto}
+  .hero{background:#f6f7fb;padding:56px 24px;text-align:center}
+  h1{font-size:clamp(28px,4vw,40px);margin:0 0 8px}
+  h2{font-size:clamp(22px,3vw,28px);margin:32px 0 8px}
+  .lead{font-size:18px;color:#444}
+  .btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:20px}
+  .btn{padding:12px 18px;border-radius:10px;border:1px solid #333;text-decoration:none;color:#fff;background:#111}
+  .btn.outline{color:#111;background:#fff}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+  .card{border:1px solid #eee;border-radius:14px;padding:16px;background:#fff}
+  ul.check{list-style:none;padding-left:0}
+  ul.check li::before{content:"✓ ";color:#3a7}
+  table{width:100%;border-collapse:collapse}
+  th,td{border:1px solid #eee;padding:10px;text-align:left}
+  details{border:1px solid #eee;border-radius:10px;padding:10px;margin:8px 0;background:#fff}
+  footer{background:#f6f7fb;color:#555;font-size:14px}
+  .small{font-size:13px;color:#666}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <h1>推しが、いつでもそばに。</h1>
+    <p class="lead">ワンタッチで“推しの声／推しの曲”を再生。<br>手のひらサイズのサウンドガジェット <strong>推しボタン｜Oshi Voice Player</strong></p>
+    <div class="btns">
+      <!-- ▼購入ボタンのリンク先をあなたのメルカリ/BOOTH/ショップURLに差し替えてください -->
+      <a class="btn" href="#" target="_blank" rel="noopener">購入する</a>
+      <a class="btn outline" href="#contact">お問い合わせ</a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section>
+    <h2>こんな人におすすめ</h2>
+    <div class="cards">
+      <div class="card">推しのセリフを<strong>いつでも聴きたい</strong></div>
+      <div class="card">自分の楽曲を<strong>“手に取れる”グッズ</strong>に</div>
+      <div class="card">誕生日や記念日に<strong>声のギフト</strong>を贈りたい</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>使い方（5ステップ）</h2>
+    <ol>
+      <li>好きな音源を用意（<strong>MP3推奨</strong>）</li>
+      <li>microSDに<strong>/mp3</strong>フォルダ作成</li>
+      <li>音源ファイルを入れる（例：<code>001.mp3</code>）</li>
+      <li>本体へmicroSDを挿入</li>
+      <li>ボタンを押して<strong>再生！</strong></li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>特長</h2>
+    <ul class="check">
+      <li><strong>シンプル操作</strong>：電源ON→ボタンひとつ</li>
+      <li><strong>コンパクト</strong>：ポケットにすっぽり</li>
+      <li><strong>スピーカー内蔵</strong>：そのまま鳴る</li>
+      <li><strong>カスタム対応</strong>：刻印・書き込み代行（オプション）</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>仕様</h2>
+    <table>
+      <tr><th>外形寸法</th><td>横85 × 奥行62 × 高さ36 mm</td></tr>
+      <tr><th>電源</th><td>単4電池 × 3本</td></tr>
+      <tr><th>音源</th><td>microSD（MP3）</td></tr>
+      <tr><th>出力</th><td>小型スピーカー内蔵（2W / 8Ω）</td></tr>
+      <tr><th>同梱物</th><td>本体、microSD（内容は販売ページ参照）、簡易ガイド</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>価格・オプション</h2>
+    <p>本体価格：<strong>¥○,○○○（税込）</strong><br>
+    刻印オプション：<strong>+¥○○○</strong>／音源書き込み代行：<strong>+¥○○○</strong><br>
+    送料・配送方法は販売ページをご確認ください。</p>
+  </section>
+
+  <section>
+    <h2>よくある質問</h2>
+    <details><summary>アニメのセリフを入れて大丈夫？</summary>
+      <p>著作権・肖像権・パブリシティ権に配慮が必要です。権利を侵害しない範囲でご利用ください。</p>
+    </details>
+    <details><summary>対応フォーマットは？</summary>
+      <p>MP3推奨（128～192kbps程度が目安）。</p>
+    </details>
+    <details><summary>音量は調整できますか？</summary>
+      <p>本体は標準音量です。必要に応じて音源側で音量を調整してください。</p>
+    </details>
+    <details><summary>連続再生時間は？</summary>
+      <p>電池・音量・音源により異なります。一般的なアルカリ乾電池で数時間を想定。</p>
+    </details>
+  </section>
+
+  <section>
+    <h2>ご利用上の注意</h2>
+    <p class="small">本製品は利用者が用意した音源を再生するガジェットです。第三者の権利（著作権・商標・肖像・パブリシティ等）を侵害しないようご利用ください。音源の取り扱いは自己責任でお願いします。</p>
+  </section>
+
+  <section id="contact">
+    <h2>お問い合わせ</h2>
+    <p>コラボ・まとめ注文・BtoBのご相談も歓迎です。<br>
+    連絡先：<a href="mailto:you@example.com">you@example.com</a> ／ SNS：<a href="#" target="_blank" rel="noopener">X</a>・<a href="#" target="_blank" rel="noopener">Instagram</a></p>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>© <span id="y"></span> 推しボタン / Oshi Voice Player</p>
+  </div>
+</footer>
+<script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+</body>
+</html>
